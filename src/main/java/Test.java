@@ -19,7 +19,6 @@ public class Test {
         factory.setUsername("irrelevant");
         factory.setPassword(null);
 
-        factory.useNio();
         factory.setAutomaticRecoveryEnabled(false);
 
         return factory;
