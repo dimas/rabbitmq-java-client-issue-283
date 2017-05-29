@@ -11,26 +11,22 @@ public class Test {
 
     private static ExecutorService executor = Executors.newFixedThreadPool(5);;
 
-    private static ConnectionFactory makeFactory() {
-        final ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        factory.setPort(30012);
-
-        factory.setUsername("irrelevant");
-        factory.setPassword(null);
-
-        factory.setAutomaticRecoveryEnabled(false);
-
-        return factory;
-    }
-
     public static void main(String[] args) {
 
         try {
             final DumbAmqpServer server = new DumbAmqpServer(30012);
             server.start();
 
-            makeFactory().newConnection(executor);
+            final ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            factory.setPort(30012);
+
+            factory.setUsername("irrelevant");
+            factory.setPassword(null);
+
+            factory.setAutomaticRecoveryEnabled(false);
+
+            factory.newConnection(executor);
 
         } catch (Exception e) {
             log.error("Unexpected exception", e);

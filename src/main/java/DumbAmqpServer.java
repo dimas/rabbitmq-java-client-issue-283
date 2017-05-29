@@ -34,25 +34,6 @@ class DumbAmqpServer implements Runnable {
         this.port = port;
     }
 
-    static class Copier implements Runnable {
-        private final InputStream input;
-        private final OutputStream output;
-
-        Copier(final InputStream input, final OutputStream output) {
-            this.input = input;
-            this.output = output;
-        }
-
-        @Override
-        public void run() {
-            try {
-                IOUtils.copy(input, output);
-            } catch (IOException e) {
-                log.error("Error copying data", e);
-            }
-        }
-    }
-
     public void start() throws IOException {
 
         final ServerSocket socket = ServerSocketFactory.getDefault().createServerSocket();
@@ -65,7 +46,6 @@ class DumbAmqpServer implements Runnable {
         serverThread.start();
 
         log.info("Started server on port {}", port);
-
     }
 
     private void service(final Socket socket) throws IOException {
